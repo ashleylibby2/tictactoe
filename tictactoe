@@ -1,0 +1,47 @@
+from graphics import *
+
+def main():
+    win = GraphWin("TicTacToe")
+    #sets coordinates to go from (0,0) in lower left to (3,3) in upper right
+    win.setCoords(0.0, 0.0, 3.0, 3.0)
+    #draw vertical lines
+    Line(Point(1,0), Point(1,3)).draw(win)
+    Line(Point(2,0), Point(2,3)).draw(win)
+    #draw horizontal lines
+    Line(Point(0,1), Point(3,1)).draw(win)
+    Line(Point(0,2), Point(3,2)).draw(win)
+
+    #Draws circle shape in graphics window
+    shape = Circle(Point(.3,.3),.3)
+    shape.setOutline("black")
+    #Allows circle to be drawn 9x in graphics window using user mouse clicks
+    for i in range(9):
+        p = win.getMouse()
+        #Clones circle and allows user to move it to new coordinate place where
+        #mouse is clicked
+        c = shape.getCenter()
+        dx = p.getX() - c.getX()
+        dy = p.getY() - c.getY()
+        shape = shape.clone()
+        shape.move(dx,dy)
+        shape.draw(win)
+
+    message = Text(Point(.3,.3),"")
+    message.setText("X")
+    message.setSize(30)
+    for i in range(9):
+        p = win.getMouse()
+        c = message.getAnchor()
+        dx = p.getX() - c.getY()
+        dy = p.getY() - c.getX()
+        message = message.clone()
+        message.move(dx,dy)
+        message.draw(win)
+        
+    
+    #Waits for another click to exit the program
+    Text(Point(1.5,1.5),"<Click> to Quit").draw(win)
+    win.getMouse()
+    win.close()
+
+main()
